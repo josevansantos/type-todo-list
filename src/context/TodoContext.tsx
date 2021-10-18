@@ -1,5 +1,6 @@
-import React, { createContext } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { Todo } from '../models/Todo';
+import { get, save } from '../services/TodoServices';
 import { TodoContextType } from './TodoContextType';
 
 //Inicializando o contexto da aplicação
@@ -11,10 +12,31 @@ export const TodoContext = createContext<TodoContextType>({
 });
 
 const TodoProvider = (props: any) => {
-  const todos: Todo[] = [];
-  const addTodo = (title: string) => {};
-  const removeTodo = (todo: Todo) => {};
-  const toggle = (todo: Todo) => {};
+  const [todos, setTodos] = useState<Todo[]>(get);
+
+  useEffect(() => {
+    save(todos);
+  }, [todos]);
+
+  const addTodo = (title: string) => {
+    const todo: Todo = {
+      id: Math.ceil(Math.random() * Math.pow(10, todos.length)),
+      title: title,
+      done: false,
+    };
+    setTodos([...todos, todo]);
+  };
+
+  const removeTodo = (todo: Todo) => {
+    const index = todos.indexOf(todo);
+    setTodos(todos.filter((_, i) => i !== index));
+  };
+
+  const toggle = (todo: Todo) => {
+    const index = todos.indexOf(todo);
+    todos[index].done = !todo.done;
+    setTodos([...todos]);
+  };
 
   return (
     <TodoContext.Provider value={{ todos, addTodo, removeTodo, toggle }}>
