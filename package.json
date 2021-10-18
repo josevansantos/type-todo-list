@@ -1,7 +1,7 @@
 {
   "name": "test",
   "version": "0.1.0",
-  "homepage": "github-page/",
+  "homepage": "type-todo-list/",
   "private": true,
   "dependencies": {
     "@hookform/resolvers": "^0.1.0",
