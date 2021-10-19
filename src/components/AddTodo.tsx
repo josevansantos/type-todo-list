@@ -4,9 +4,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from 'yup';
 import { TodoContextType } from '../context/TodoContextType';
+import { Link } from 'react-router-dom';
 
 const schema = yup.object().shape({
-  title: yup.string().required('Tarefa inválida'),
+  title: yup.string().required('Invalid task, please enter a task'),
 });
 
 interface AddTodoForm {
@@ -27,13 +28,13 @@ const AddTodo = () => {
 
   return (
     <form onSubmit={handleSubmit<AddTodoForm>(onSubmit)}>
-      <h4>Nova tarefa</h4>
+      <h4>New task</h4>
       <div className="uk-margin uk-width-1-1">
         <input
           type="text"
           name="title"
           id="title"
-          placeholder="Nova tarefa..."
+          placeholder="write your new task here..."
           className="uk-input"
           ref={register}
         />
@@ -43,10 +44,20 @@ const AddTodo = () => {
           </small>
         </span>
       </div>
-      <div className="uk-width-1-1">
-        <button type="submit" className="uk-button uk-button-primary">
-          Salvar
-        </button>
+      <div className="uk-button-group">
+        <div>
+          <button
+            type="submit"
+            className="uk-button uk-button-primary uk-align-left"
+          >
+            Save
+          </button>
+          <Link to={'/type-todo-list/'}>
+            <span className="uk-button uk-button-danger uk-align-right">
+              Cancel
+            </span>
+          </Link>
+        </div>
       </div>
     </form>
   );
