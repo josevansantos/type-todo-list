@@ -7,12 +7,11 @@ const TodoList = () => {
   const { todos } = useContext<TodoContextType>(TodoContext);
 
   return (
-    <table className="uk-table">
-      <caption>Tasks</caption>
+    <table className="uk-table uk-table-hover uk-table-middle uk-table-divider">
       <thead>
         <tr>
-          <th>#</th>
-          <th>Task</th>
+          <th></th>
+          <th>Tasks</th>
           <th></th>
         </tr>
       </thead>
